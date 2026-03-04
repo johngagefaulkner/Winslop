@@ -26,7 +26,7 @@ Windows
     ├── suggestions
     └── background junk
          ↓
-      removed
+      removed by winslop
          ↓
        thanks
         Satya
