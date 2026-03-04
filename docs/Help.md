@@ -1,3 +1,5 @@
+> 🚧 **Work in Progress:** Documentation is still being written and some pages may be incomplete.
+> 
 > Looking for detailed descriptions of every toggle / tweak?
 > See the full **Feature Reference** here: **[features.md](features.md)**  
 > (Includes registry keys, value names, recommended values, undo values, and plugin notes.)
