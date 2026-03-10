@@ -1,0 +1,114 @@
+{
+  "features": [
+    {
+      "id": "ui.disable-bing-search",
+      "displayName": "Disable Bing Search in Start",
+      "category": "UI",
+      "description": "Removes web results from the Start/Search experience.",
+      "applicability": "any",
+      "checkRules": [
+        {
+          "keyPath": "HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "DisableSearchBoxSuggestions",
+          "assertionType": "int",
+          "expectedInt": 1
+        }
+      ],
+      "applyActions": [
+        {
+          "actionType": "write",
+          "keyPath": "HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "DisableSearchBoxSuggestions",
+          "valueKind": "int",
+          "intValue": 1
+        },
+        {
+          "actionType": "write",
+          "keyPath": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "valueName": "BingSearchEnabled",
+          "valueKind": "int",
+          "intValue": 0,
+          "restartExplorer": true
+        }
+      ],
+      "undoActions": [
+        {
+          "actionType": "delete",
+          "keyPath": "HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "DisableSearchBoxSuggestions"
+        },
+        {
+          "actionType": "write",
+          "keyPath": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "valueName": "BingSearchEnabled",
+          "valueKind": "int",
+          "intValue": 1,
+          "restartExplorer": true
+        }
+      ],
+      "supportsUndo": true
+    },
+    {
+      "id": "taskbar.disable-widgets",
+      "displayName": "Disable Widgets",
+      "category": "Taskbar",
+      "description": "Hides Widgets from the taskbar.",
+      "applicability": "win11+",
+      "checkRules": [
+        {
+          "keyPath": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "valueName": "TaskbarDa",
+          "assertionType": "int",
+          "expectedInt": 0
+        }
+      ],
+      "applyActions": [
+        {
+          "actionType": "write",
+          "keyPath": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "valueName": "TaskbarDa",
+          "valueKind": "int",
+          "intValue": 0,
+          "restartExplorer": true
+        }
+      ],
+      "undoActions": [
+        {
+          "actionType": "write",
+          "keyPath": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "valueName": "TaskbarDa",
+          "valueKind": "int",
+          "intValue": 1,
+          "restartExplorer": true
+        }
+      ],
+      "supportsUndo": true
+    },
+    {
+      "id": "system.verbose-status",
+      "displayName": "Enable Verbose Status Messages",
+      "category": "System",
+      "description": "Shows detailed status messages during startup, shutdown, and sign in.",
+      "applicability": "any",
+      "checkRules": [
+        {
+          "keyPath": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "VerboseStatus",
+          "assertionType": "int",
+          "expectedInt": 1
+        }
+      ],
+      "applyActions": [
+        {
+          "actionType": "write",
+          "keyPath": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "VerboseStatus",
+          "valueKind": "int",
+          "intValue": 1
+        }
+      ],
+      "undoActions": [],
+      "supportsUndo": false
+    }
+  ]
+}
