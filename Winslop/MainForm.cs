@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Winslop.Extensions;
+using Winslop.Features.Catalog;
 using Winslop.Views;
 
 namespace Winslop
@@ -28,6 +29,8 @@ namespace Winslop
 
             // Global logger output stays in the shell
             Logger.OutputBox = rtbLogger;
+
+            FeatureCatalogService.Initialize();
 
             _logActions = new LogActions(rtbLogger);
 
