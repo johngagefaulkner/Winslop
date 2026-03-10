@@ -1,0 +1,379 @@
+{
+  "sections": [
+    {
+      "title": "Issues & Maintenance",
+      "features": [
+        {
+          "id": "Basic Disk Cleanup",
+          "displayName": "Basic Disk Cleanup",
+          "codeBacked": true
+        },
+        {
+          "id": "Winget App Updates",
+          "displayName": "Winget App Updates",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "System",
+      "features": [
+        {
+          "id": "Show BSOD details instead of sad smiley",
+          "displayName": "Show BSOD details instead of sad smiley",
+          "codeBacked": true
+        },
+        {
+          "id": "Enable Verbose Logon status messages",
+          "displayName": "Enable Verbose Logon status messages",
+          "codeBacked": true
+        },
+        {
+          "id": "Speed Up Shutdown Time",
+          "displayName": "Speed Up Shutdown Time",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Network Throttling",
+          "displayName": "Disable Network Throttling",
+          "codeBacked": true
+        },
+        {
+          "id": "Optimize System Responsiveness",
+          "displayName": "Optimize System Responsiveness",
+          "codeBacked": true
+        },
+        {
+          "id": "Speed Up Menu Show Delay",
+          "displayName": "Speed Up Menu Show Delay",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Hibernation",
+          "displayName": "Disable Hibernation",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "Microsoft Edge",
+      "features": [
+        {
+          "id": "Disable Browser sign in and sync services",
+          "displayName": "Disable Browser sign in and sync services",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't Show Sponsored links in new tab page",
+          "displayName": "Don't Show Sponsored links in new tab page",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Microsoft Edge as default browser",
+          "displayName": "Disable Microsoft Edge as default browser",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Access to Collections feature",
+          "displayName": "Disable Access to Collections feature",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Shopping assistant",
+          "displayName": "Disable Shopping assistant",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't Show First Run Experience",
+          "displayName": "Don't Show First Run Experience",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Gamer Mode",
+          "displayName": "Disable Gamer Mode",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Copilot Symbol in Edge",
+          "displayName": "Disable Copilot Symbol in Edge",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't import data from other browsers at startup",
+          "displayName": "Don't import data from other browsers at startup",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Start Boost",
+          "displayName": "Disable Start Boost",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't Show Quick links in new tab page",
+          "displayName": "Don't Show Quick links in new tab page",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't Submit user feedback option",
+          "displayName": "Don't Submit user feedback option",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "UI & Personalization",
+      "features": [
+        {
+          "id": "Show Full context menus in Windows 11",
+          "displayName": "Show Full context menus in Windows 11",
+          "codeBacked": true
+        },
+        {
+          "id": "Don't use personalized lock screen",
+          "displayName": "Don't use personalized lock screen",
+          "codeBacked": true
+        },
+        {
+          "id": "Hide Most used apps in start menu",
+          "displayName": "Hide Most used apps in start menu",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Bing Search",
+          "displayName": "Disable Bing Search",
+          "codeBacked": true
+        },
+        {
+          "id": "Pin more Apps on start menu",
+          "displayName": "Pin more Apps on start menu",
+          "codeBacked": true
+        },
+        {
+          "id": "Enable Dark Mode for Apps",
+          "displayName": "Enable Dark Mode for Apps",
+          "codeBacked": true
+        },
+        {
+          "id": "Enable Dark Mode for System",
+          "displayName": "Enable Dark Mode for System",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Transparency Effects",
+          "displayName": "Disable Transparency Effects",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Snap Assist Flyout",
+          "displayName": "Disable Snap Assist Flyout",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "Taskbar",
+      "features": [
+        {
+          "id": "Align Start button to left",
+          "displayName": "Align Start button to left",
+          "codeBacked": true
+        },
+        {
+          "id": "Hide search box on taskbar",
+          "displayName": "Hide search box on taskbar",
+          "codeBacked": true
+        },
+        {
+          "id": "Hide Task view button on taskbar",
+          "displayName": "Hide Task view button on taskbar",
+          "codeBacked": true
+        },
+        {
+          "id": "Enable End Task",
+          "displayName": "Enable End Task",
+          "codeBacked": true
+        },
+        {
+          "id": "Make taskbar small",
+          "displayName": "Make taskbar small",
+          "codeBacked": true
+        },
+        {
+          "id": "Always show all system tray icons",
+          "displayName": "Always show all system tray icons",
+          "codeBacked": true
+        },
+        {
+          "id": "Remove 'Meet Now' button from system tray",
+          "displayName": "Remove 'Meet Now' button from system tray",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Widgets",
+          "displayName": "Disable Widgets",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable News and Interests",
+          "displayName": "Disable News and Interests",
+          "codeBacked": true
+        },
+        {
+          "id": "Clean Taskbar",
+          "displayName": "Clean Taskbar",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "Gaming",
+      "features": [
+        {
+          "id": "Disable Game DVR",
+          "displayName": "Disable Game DVR",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Power Throttling",
+          "displayName": "Disable Power Throttling",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Visual Effects",
+          "displayName": "Disable Visual Effects",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "Privacy & Telemetry",
+      "features": [
+        {
+          "id": "Disable activity history",
+          "displayName": "Disable activity history",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable App Launch Tracking",
+          "displayName": "Disable App Launch Tracking",
+          "codeBacked": true
+        },
+        {
+          "id": "Reduce Diagnostic Data (Basic)",
+          "displayName": "Reduce Diagnostic Data (Basic)",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable location tracking",
+          "displayName": "Disable location tracking",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Lock Screen Slideshow",
+          "displayName": "Disable Lock Screen Slideshow",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Narrator Online Services",
+          "displayName": "Disable Narrator Online Services",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Online Speech Recognition",
+          "displayName": "Disable Online Speech Recognition",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Privacy Settings Experience at sign-in",
+          "displayName": "Disable Privacy Settings Experience at sign-in",
+          "codeBacked": true
+        },
+        {
+          "id": "Prevent Silent App Installation",
+          "displayName": "Prevent Silent App Installation",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Spotlight on Lock Screen",
+          "displayName": "Disable Spotlight on Lock Screen",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "AI (Copilot & Recall)",
+      "features": [
+        {
+          "id": "Don't Show Copilot in Taskbar",
+          "displayName": "Don't Show Copilot in Taskbar",
+          "codeBacked": true
+        },
+        {
+          "id": "Turn off Recall in Windows 11",
+          "displayName": "Turn off Recall in Windows 11",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Click to Do (Only Copilot+ PCs)",
+          "displayName": "Disable Click to Do (Only Copilot+ PCs)",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Bing search results",
+          "displayName": "Disable Bing search results",
+          "codeBacked": true
+        }
+      ]
+    },
+    {
+      "title": "Ads & Recommendations",
+      "features": [
+        {
+          "id": "Disable File Explorer Ads",
+          "displayName": "Disable File Explorer Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Finish Setup Ads",
+          "displayName": "Disable Finish Setup Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Lock Screen Tips and Ads",
+          "displayName": "Disable Lock Screen Tips and Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Personalized Ads",
+          "displayName": "Disable Personalized Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Settings Ads",
+          "displayName": "Disable Settings Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Start menu Ads",
+          "displayName": "Disable Start menu Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Tailored experiences",
+          "displayName": "Disable Tailored experiences",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable General Tips and Ads",
+          "displayName": "Disable General Tips and Ads",
+          "codeBacked": true
+        },
+        {
+          "id": "Disable Welcome Experience Ads",
+          "displayName": "Disable Welcome Experience Ads",
+          "codeBacked": true
+        }
+      ]
+    }
+  ]
+}
