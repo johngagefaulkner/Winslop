@@ -1,0 +1,113 @@
+{
+  "features": [
+    {
+      "category": "System",
+      "id": "Show BSOD details instead of sad smiley",
+      "details": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\CrashControl | Values: DisplayParameters, DisableEmoticon | Recommended Value: 1",
+      "helpAnchorId": "Show BSOD details instead of sad smiley",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\CrashControl",
+          "valueName": "DisplayParameters",
+          "kind": "dword",
+          "recommendedValue": "1",
+          "undoValue": "0"
+        },
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\CrashControl",
+          "valueName": "DisableEmoticon",
+          "kind": "dword",
+          "recommendedValue": "1",
+          "undoValue": "0"
+        }
+      ]
+    },
+    {
+      "category": "System",
+      "id": "Enable Verbose Logon status messages",
+      "details": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System | Value: VerboseStatus | Recommended Value: 1",
+      "helpAnchorId": "Enable Verbose Logon status messages",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "VerboseStatus",
+          "kind": "dword",
+          "recommendedValue": "1",
+          "undoValue": "0"
+        }
+      ]
+    },
+    {
+      "category": "System",
+      "id": "Speed Up Shutdown Time",
+      "details": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control | Value: WaitToKillServiceTimeout | Recommended Value: 1000",
+      "helpAnchorId": "Speed Up Shutdown Time",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control",
+          "valueName": "WaitToKillServiceTimeout",
+          "kind": "string",
+          "recommendedValue": "1000",
+          "undoValue": "5000"
+        }
+      ]
+    },
+    {
+      "category": "System",
+      "id": "Disable Network Throttling",
+      "details": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile | Value: NetworkThrottlingIndex | Recommended Value: 4294967295",
+      "helpAnchorId": "Disable Network Throttling",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "valueName": "NetworkThrottlingIndex",
+          "kind": "dword",
+          "recommendedValue": "-1",
+          "undoValue": "10"
+        }
+      ]
+    },
+    {
+      "category": "System",
+      "id": "Optimize System Responsiveness",
+      "details": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile | Value: SystemResponsiveness | Recommended Value: 10",
+      "helpAnchorId": "Optimize System Responsiveness",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "valueName": "SystemResponsiveness",
+          "kind": "dword",
+          "recommendedValue": "10",
+          "undoValue": "20"
+        }
+      ]
+    },
+    {
+      "category": "System",
+      "id": "Speed Up Menu Show Delay",
+      "details": "HKEY_CURRENT_USER\\Control Panel\\Desktop | Value: MenuShowDelay | Recommended Value: 10",
+      "helpAnchorId": "Speed Up Menu Show Delay",
+      "applicability": "any",
+      "defaultChecked": true,
+      "registryOperations": [
+        {
+          "keyName": "HKEY_CURRENT_USER\\Control Panel\\Desktop",
+          "valueName": "MenuShowDelay",
+          "kind": "string",
+          "recommendedValue": "10",
+          "undoValue": "400"
+        }
+      ]
+    }
+  ]
+}

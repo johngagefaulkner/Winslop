@@ -4,13 +4,13 @@ using Winslop;
 public class FeatureNode
 {
     public string Name { get; set; }
-    public bool IsCategory => Feature == null;
-    public FeatureBase Feature { get; }
+    public bool IsCategory => Provider == null;
+    public IFeatureProvider Provider { get; }
     public List<FeatureNode> Children { get; set; } = new List<FeatureNode>();
 
 
-   // Property to control default checked state
-   public bool DefaultChecked { get; set; } = true;
+    // Property to control default checked state
+    public bool DefaultChecked { get; set; } = true;
 
     // Constructor for categories
     public FeatureNode(string name)
@@ -18,10 +18,15 @@ public class FeatureNode
         Name = name;
     }
 
-    // Constructor for actual features
-    public FeatureNode(FeatureBase feature)
+    // Constructor for provider-backed features
+    public FeatureNode(IFeatureProvider provider)
     {
-        Feature = feature;
-        Name = feature.ID(); // Use the ID as the name
+        Provider = provider;
+        Name = provider.ID();
+    }
+
+    // Backward-compatible constructor for existing code feature classes.
+    public FeatureNode(FeatureBase feature) : this(new CodeFeatureProvider(feature))
+    {
     }
 }

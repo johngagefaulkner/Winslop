@@ -8,6 +8,9 @@ using Settings.Privacy;
 using Settings.System;
 using Settings.UI;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Winslop;
 
 namespace Features
 {
@@ -15,6 +18,12 @@ namespace Features
     {
         public static List<FeatureNode> Load()
         {
+            string catalogPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "features.catalog.json");
+            var catalog = CatalogFeatureProvider.LoadCatalog(catalogPath);
+
+            var systemChildren = NodesForCategory(catalog, "System");
+            systemChildren.Add(new FeatureNode(new DisableHibernation()));
+
             return new List<FeatureNode>
             {
                new FeatureNode("Issues")
@@ -27,16 +36,7 @@ namespace Features
 
               new FeatureNode("System")
                 {
-                    Children =
-                    {
-                       new FeatureNode(new BSODDetails()),
-                       new FeatureNode(new VerboseStatus()),
-                       new FeatureNode(new SpeedUpShutdown()),
-                       new FeatureNode(new NetworkThrottling()),
-                       new FeatureNode(new SystemResponsiveness()),
-                       new FeatureNode(new MenuShowDelay()),
-                       new FeatureNode(new DisableHibernation()),
-                    }
+                    Children = systemChildren
                 },
 
                 new FeatureNode("MS Edge")
@@ -146,6 +146,17 @@ namespace Features
                     }
                 },
             };
+        }
+
+        private static List<FeatureNode> NodesForCategory(List<CatalogFeatureItem> catalog, string category)
+        {
+            return catalog
+                .Where(item => item.Category == category)
+                .Select(item => new FeatureNode(new CatalogFeatureProvider(item))
+                {
+                    DefaultChecked = item.DefaultChecked,
+                })
+                .ToList();
         }
     }
 }
