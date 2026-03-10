@@ -16,16 +16,16 @@ namespace Winslop.Help
 
         /// <summary>
         /// Builds the documentation URL for a feature, including a GitHub-style anchor.
-        /// Feature: anchor from feature.ID() (must match the markdown heading)
+        /// Feature: anchor from feature.HelpAnchorId() (must match the markdown heading)
         /// </summary>
-        public static string GetFeatureUrl(FeatureBase feature)
+        public static string GetFeatureUrl(IFeatureProvider feature)
         {
             // If no feature is given, fall back to the document root.
             if (feature == null) return FeaturesDocUrl;
 
             // GitHub creates section anchors from headings (lowercase + hyphens).
-            // We generate the same style of anchor from feature.ID().
-            return FeaturesDocUrl + "#" + ToGitHubAnchor(feature.ID());
+            // We generate the same style of anchor from feature.HelpAnchorId().
+            return FeaturesDocUrl + "#" + ToGitHubAnchor(feature.HelpAnchorId());
         }
 
         // Plugin: anchor from plugin title (usually node.Text)

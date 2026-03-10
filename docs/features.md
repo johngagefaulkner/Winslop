@@ -1,5 +1,37 @@
 # Features
 
+## Maintainer note: declarative vs code-backed features
+
+Winslop now supports two provider types under `Winslop/Features/`:
+
+- **CatalogFeatureProvider (declarative JSON):** for straightforward registry-only settings.
+- **CodeFeatureProvider (code-backed):** for features that require richer logic and side effects.
+
+Use these criteria when adding new features:
+
+### Declarative eligible
+Choose the JSON catalog when all of the following are true:
+- The feature is a fixed set of registry writes (set recommended value / set undo value).
+- `Check` can be represented as simple equality checks against registry values.
+- `Do` and `Undo` are deterministic and fully reversible with stored values.
+- Applicability is simple (for example: any, Windows 10 only, Windows 11 only).
+- No process execution, file I/O, service control, or multi-step transactional behavior is needed.
+
+### Code-backed required
+Keep or implement a `FeatureBase` class when one or more of these are true:
+- The feature executes commands or external processes (for example `powercfg`, `cleanmgr`).
+- The feature is not strictly reversible or has one-way/irreversible effects.
+- The feature needs branching logic, retries, advanced validation, or orchestration.
+- The feature depends on side effects (restarting Explorer, killing processes, deleting files, etc.).
+- The feature requires richer OS/version/runtime checks than catalog applicability provides.
+
+Current examples that should remain code-backed:
+- `Winslop/Features/Issues/BasicCleanup.cs`
+- `Winslop/Features/System/Hibernation.cs`
+- Action-style features that intentionally perform side effects or are not strictly reversible.
+
+---
+
 ## Table of contents
 - [Issues & Maintenance](#issues)
 - [System](#system)
