@@ -7,145 +7,149 @@ using Settings.Personalization;
 using Settings.Privacy;
 using Settings.System;
 using Settings.UI;
+using System;
 using System.Collections.Generic;
+using Winslop;
 
 namespace Features
 {
     public static class FeatureLoader
     {
+        private sealed class FeatureCatalogEntry
+        {
+            public string Category { get; set; }
+            public Func<FeatureBase> Factory { get; set; }
+            public bool DefaultChecked { get; set; } = true;
+        }
+
+        private sealed class CodeFeatureRegistration
+        {
+            public string Category { get; set; }
+            public Func<FeatureBase> Factory { get; set; }
+            public bool? DefaultCheckedOverride { get; set; }
+        }
+
         public static List<FeatureNode> Load()
         {
-            return new List<FeatureNode>
+            var categories = new List<FeatureNode>();
+            var categoryLookup = new Dictionary<string, FeatureNode>(StringComparer.OrdinalIgnoreCase);
+
+            void AddFeature(string categoryName, FeatureNode featureNode)
             {
-               new FeatureNode("Issues")
+                if (!categoryLookup.TryGetValue(categoryName, out var categoryNode))
                 {
-                    Children =
-                    {
-                        new FeatureNode(new BasicCleanup()),
-                    }
-                },
+                    categoryNode = new FeatureNode(categoryName);
+                    categoryLookup[categoryName] = categoryNode;
+                    categories.Add(categoryNode);
+                }
 
-              new FeatureNode("System")
+                categoryNode.Children.Add(featureNode);
+            }
+
+            // Explicit code-backed registry for features that are not fully declarative.
+            foreach (var registration in GetCodeFeatureRegistry())
+            {
+                var node = new FeatureNode(registration.Factory());
+                if (registration.DefaultCheckedOverride.HasValue)
+                    node.DefaultChecked = registration.DefaultCheckedOverride.Value;
+
+                AddFeature(registration.Category, node);
+            }
+
+            foreach (var entry in GetFeatureCatalog())
+            {
+                AddFeature(entry.Category, new FeatureNode(entry.Factory())
                 {
-                    Children =
-                    {
-                       new FeatureNode(new BSODDetails()),
-                       new FeatureNode(new VerboseStatus()),
-                       new FeatureNode(new SpeedUpShutdown()),
-                       new FeatureNode(new NetworkThrottling()),
-                       new FeatureNode(new SystemResponsiveness()),
-                       new FeatureNode(new MenuShowDelay()),
-                       new FeatureNode(new DisableHibernation()),
-                    }
-                },
+                    DefaultChecked = entry.DefaultChecked,
+                });
+            }
 
-                new FeatureNode("MS Edge")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new BrowserSignin()),
-                       new FeatureNode(new DefaultTopSites()),
-                       new FeatureNode(new DefautBrowserSetting()),
-                       new FeatureNode(new EdgeCollections()),
-                       new FeatureNode(new EdgeShoppingAssistant()),
-                       new FeatureNode(new FirstRunExperience()),
-                       new FeatureNode(new GamerMode()),
-                       new FeatureNode(new HubsSidebar()),
-                       new FeatureNode(new ImportOnEachLaunch()),
-                       new FeatureNode(new StartupBoost()),
-                       new FeatureNode(new TabPageQuickLinks()),
-                       new FeatureNode(new UserFeedback()),
-                    }
-                },
+            return categories;
+        }
 
-               new FeatureNode("UI")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new FullContextMenus()),
-                       new FeatureNode(new LockScreen()),
-                       new FeatureNode(new ShowOrHideMostUsedApps()),
-                       new FeatureNode(new DisableBingSearch()),
-                       new FeatureNode(new StartLayout()),
-                       new FeatureNode(new Transparency()),
-                       new FeatureNode(new AppDarkMode()) { DefaultChecked = false },
-                       new FeatureNode(new SystemDarkMode()) { DefaultChecked = false },
-                       new FeatureNode(new DisableSnapAssistFlyout()),
-                    }
-                },
-
-               new FeatureNode("Taskbar")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new AlwaysShowTrayIcons()),
-                       new FeatureNode(new RemoveMeetNowButton()),
-                       new FeatureNode(new DisableNewsAndInterests()),
-                       new FeatureNode(new DisableWidgets()),
-                       new FeatureNode(new TaskbarEndTask()),
-                       new FeatureNode(new TaskbarSmallIcons()),
-                       new FeatureNode(new SearchboxTaskbarMode()),
-                       new FeatureNode(new ShowTaskViewButton()),
-                       new FeatureNode(new TaskbarAlignment()),
-                       new FeatureNode(new CleanTaskbar()) { DefaultChecked = false },
-                    }
-                },
-
-               new FeatureNode("Gaming")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new GameDVR()),
-                       new FeatureNode(new PowerThrottling()),
-                       new FeatureNode(new VisualFX()),
-                    }
-                },
-
-                new FeatureNode("Privacy")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new ActivityHistory()),
-                       new FeatureNode(new LocationTracking()),
-                       new FeatureNode(new PrivacyExperience()),
-                       new FeatureNode(new DiagnosticData()),
-                       new FeatureNode(new SilentAppInstallation()),
-                       new FeatureNode(new WindowsSpotlightLockScreen()),
-                       new FeatureNode(new LockScreenSlideshow()),
-                       new FeatureNode(new AppLaunchTracking()),
-                       new FeatureNode(new OnlineSpeechRecognition()),
-                       new FeatureNode(new NarratorOnlineServices()),
-
-                    }
-                },
-
-                new FeatureNode("Ads")
-                {
-                    Children =
-                    {
-                        new FeatureNode(new FileExplorerAds()),
-                        new FeatureNode(new FinishSetupAds()),
-                        new FeatureNode(new LockScreenAds()),
-                        new FeatureNode(new PersonalizedAds()),
-                        new FeatureNode(new SettingsAds()),
-                        new FeatureNode(new StartmenuAds()),
-                        new FeatureNode(new TailoredExperiences()),
-                        new FeatureNode(new TipsAndSuggestions()),
-                        new FeatureNode(new WelcomeExperienceAds()),
-                    }
-                },
-
-                new FeatureNode("AI")
-                {
-                    Children =
-                    {
-                       new FeatureNode(new CopilotTaskbar()),
-                       new FeatureNode(new Recall()),
-                       new FeatureNode(new ClickToDo()) { DefaultChecked = false },
-                       new FeatureNode(new DisableSearchBoxSuggestions()),
-                    }
-                },
+        private static IEnumerable<CodeFeatureRegistration> GetCodeFeatureRegistry()
+        {
+            // Keep this list small and explicit. Use only when a feature cannot be described by catalog metadata alone.
+            yield return new CodeFeatureRegistration
+            {
+                Category = "Issues",
+                Factory = () => new BasicCleanup(),
             };
+        }
+
+        private static IEnumerable<FeatureCatalogEntry> GetFeatureCatalog()
+        {
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new BSODDetails() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new VerboseStatus() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new SpeedUpShutdown() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new NetworkThrottling() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new SystemResponsiveness() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new MenuShowDelay() };
+            yield return new FeatureCatalogEntry { Category = "System", Factory = () => new DisableHibernation() };
+
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new BrowserSignin() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new DefaultTopSites() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new DefautBrowserSetting() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new EdgeCollections() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new EdgeShoppingAssistant() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new FirstRunExperience() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new GamerMode() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new HubsSidebar() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new ImportOnEachLaunch() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new StartupBoost() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new TabPageQuickLinks() };
+            yield return new FeatureCatalogEntry { Category = "MS Edge", Factory = () => new UserFeedback() };
+
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new FullContextMenus() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new LockScreen() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new ShowOrHideMostUsedApps() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new DisableBingSearch() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new StartLayout() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new Transparency() };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new AppDarkMode(), DefaultChecked = false };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new SystemDarkMode(), DefaultChecked = false };
+            yield return new FeatureCatalogEntry { Category = "UI", Factory = () => new DisableSnapAssistFlyout() };
+
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new AlwaysShowTrayIcons() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new RemoveMeetNowButton() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new DisableNewsAndInterests() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new DisableWidgets() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new TaskbarEndTask() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new TaskbarSmallIcons() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new SearchboxTaskbarMode() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new ShowTaskViewButton() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new TaskbarAlignment() };
+            yield return new FeatureCatalogEntry { Category = "Taskbar", Factory = () => new CleanTaskbar(), DefaultChecked = false };
+
+            yield return new FeatureCatalogEntry { Category = "Gaming", Factory = () => new GameDVR() };
+            yield return new FeatureCatalogEntry { Category = "Gaming", Factory = () => new PowerThrottling() };
+            yield return new FeatureCatalogEntry { Category = "Gaming", Factory = () => new VisualFX() };
+
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new ActivityHistory() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new LocationTracking() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new PrivacyExperience() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new DiagnosticData() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new SilentAppInstallation() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new WindowsSpotlightLockScreen() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new LockScreenSlideshow() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new AppLaunchTracking() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new OnlineSpeechRecognition() };
+            yield return new FeatureCatalogEntry { Category = "Privacy", Factory = () => new NarratorOnlineServices() };
+
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new FileExplorerAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new FinishSetupAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new LockScreenAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new PersonalizedAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new SettingsAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new StartmenuAds() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new TailoredExperiences() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new TipsAndSuggestions() };
+            yield return new FeatureCatalogEntry { Category = "Ads", Factory = () => new WelcomeExperienceAds() };
+
+            yield return new FeatureCatalogEntry { Category = "AI", Factory = () => new CopilotTaskbar() };
+            yield return new FeatureCatalogEntry { Category = "AI", Factory = () => new Recall() };
+            yield return new FeatureCatalogEntry { Category = "AI", Factory = () => new ClickToDo(), DefaultChecked = false };
+            yield return new FeatureCatalogEntry { Category = "AI", Factory = () => new DisableSearchBoxSuggestions() };
         }
     }
 }
